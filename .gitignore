@@ -12,10 +12,10 @@ yarn-debug.log*
 yarn-error.log*
 yarn.log*
 yarn.lock*
-package-lock.json*
 
 # Editor directories and files
 .idea
+.history
 .vscode
 *.suo
 *.ntvs*

@@ -1,4 +1,4 @@
-import axios from '@/axios/index'
+import axios from '@/api/index'
 import commonActions from './common/actions'
 import systemSettingActions from './systemsetting/actions'
 

@@ -1,4 +1,4 @@
-import axios from '@/axios/index'
+import axios from '@/api/index'
 
 const actions = {
   // 获取系统设置

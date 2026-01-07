@@ -1,4 +1,4 @@
-import axios from '@/axios'
+import axios from '@/api'
 
 const actions = {
   // 获取商品信息

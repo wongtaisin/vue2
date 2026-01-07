@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true
 axios.defaults.headers = {
   'X-Requested-With': 'XMLHttpRequest',
   'Content-Type': 'application/json; charset=UTF-8',
-  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Origin': '*'
 }
 axios.defaults.responseType = 'json'
 axios.defaults.retry = 4
@@ -19,7 +19,7 @@ axios.defaults.retryDelay = 1000
 
 axios.interceptors.response.use(
   response => {
-    if (response.data.code != 0) window.location.href = '/login' // 是否有登录
+    if (response.data.code !== 0) window.location.href = '/login' // 是否有登录
     return response
   },
   error => {
@@ -30,9 +30,8 @@ axios.interceptors.response.use(
 // response 响应的拦截
 axios.interceptors.response.use(
   response => {
-    let config = response.config
+    const config = response.config
     if (response.data.code === 1003) { // 错误断连
-
       if (!config || !config.retry) return Promise.reject(response) // 如果配置不存在或未设置重试选项，则拒绝
 
       config.__retryCount = config.__retryCount || 0 // 设置变量以跟踪重试过程
@@ -45,7 +44,7 @@ axios.interceptors.response.use(
       config.__retryCount += 1 // 增加重试计数
 
       // 创造新的承诺，以处理指数后退
-      let backoff = new Promise((resolve) => {
+      const backoff = new Promise((resolve) => {
         setTimeout(() => {
           resolve()
         }, config.retryDelay || 1)
