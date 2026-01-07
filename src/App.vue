@@ -1,67 +1,85 @@
 <template>
   <div id="vue">
-    <transition :name="moveName">
-      <keep-alive>
-        <router-view
-          :data-page-id="$route.fullPath"
-          @touchend="touchEnd"
-          @touchstart="touchStart"
-          class="app-view"
-        ></router-view>
-      </keep-alive>
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition :name="moveName">
+        <keep-alive>
+          <component
+            :is="Component"
+            :data-page-id="$route.fullPath"
+            @touchend="touchEnd"
+            @touchstart="touchStart"
+            class="app-view"
+          />
+        </keep-alive>
+      </transition>
+    </router-view>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'app',
-  data () {
-    return {
-      moveName: '', // 页面滑动 name值
-      startX: 0,
-      endX: 0
-    }
-  },
-  watch: {
-    $route (to, from) {
-      if (to.meta.grade < from.meta.grade) this.moveName = 'move-left'
-      if (to.meta.grade > from.meta.grade) this.moveName = 'move-right'
-      if (!from.name) this.moveName = ''
-    }
-  },
-  mounted () {
-    this.$nextTick(() => {
-      // ios 键盘弹起失效问题
-      document.body.addEventListener('focusout', () => {
-        window.scrollTo(0, 0)
-      })
-    })
-  },
-  destroy () {
-    document.body.removeEventListener('focusout', () => {
-      window.scrollTo(0, 0)
-    })
-  },
-  methods: {
-    touchStart (e) {
-      // 记录初始位置
-      this.startX = e.touches[0].clientX
-    },
-    // 滑动结束
-    touchEnd (e) {
-      this.endX = e.changedTouches[0].clientX
-      if (this.$route.meta.grade === 1) return false
-      if (this.startX - this.endX > 160) console.log(e, '左滑')
-      if (this.startX - this.endX < -160) {
-        if (this.startX === 0) return false
-        console.log(e, '右滑')
-        this.$router.go(-1)
-      }
-      this.startX = 0
-      this.endX = 0
-    }
+<script setup lang="ts">
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
+
+// 页面滑动 name值
+const moveName = ref('')
+const startX = ref(0)
+const endX = ref(0)
+
+// 监听路由变化
+watch(route, (to, from) => {
+  // 添加空值检查，确保meta属性存在
+  const toGrade = to.meta?.grade || 0
+  const fromGrade = from.meta?.grade || 0
+
+  if (toGrade < fromGrade) moveName.value = 'move-left'
+  if (toGrade > fromGrade) moveName.value = 'move-right'
+  if (!from.name) moveName.value = ''
+})
+
+// 处理键盘弹起的事件处理函数
+const handleFocusOut = () => {
+  window.scrollTo(0, 0)
+}
+
+onMounted(() => {
+  // ios 键盘弹起失效问题
+  document.body.addEventListener('focusout', handleFocusOut)
+})
+
+onUnmounted(() => {
+  document.body.removeEventListener('focusout', handleFocusOut)
+})
+
+// 记录初始位置
+const touchStart = (e: TouchEvent) => {
+  if (e.touches.length > 0) {
+    startX.value = e.touches[0].clientX
   }
+}
+
+// 滑动结束
+const touchEnd = (e: TouchEvent) => {
+  if (e.changedTouches.length > 0) {
+    endX.value = e.changedTouches[0].clientX
+  }
+
+  if (route.meta.grade === 1) return
+
+  if (startX.value - endX.value > 160) {
+    console.log(e, '左滑')
+  }
+
+  if (startX.value - endX.value < -160) {
+    if (startX.value === 0) return
+    console.log(e, '右滑')
+    router.go(-1)
+  }
+
+  startX.value = 0
+  endX.value = 0
 }
 </script>
 

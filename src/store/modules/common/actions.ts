@@ -1,12 +1,11 @@
 import axios from '@/axios/index'
 
 const actions = {
-  commonPublic({
-    commit
-  }, params) {
+  commonPublic({ commit }, params) {
     axios({
       method: 'get',
-      url: '/api/index/public'
+      url: '/api/index/public',
+      params
     }).then(res => {
       if (res.data.code === 0) {
         if (res.data.data) {

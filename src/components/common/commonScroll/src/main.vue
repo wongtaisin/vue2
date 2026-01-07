@@ -1,9 +1,9 @@
 <template>
   <div class="content-box">
-    <div class="wrapper" ref="wrapper">
-      <div ref="content">
+    <div class="wrapper" ref="wrapperRef">
+      <div ref="contentRef">
         <div v-if="options.pullingDown">
-          <div :style="pullDownStyle" class="pulling-down-tips" ref="pullingDownTips">
+          <div :style="pullDownStyle" class="pulling-down-tips" ref="pullingDownTipsElRef">
             <div class="tips-box">
               <div>
                 <i class="iconfont minku-jiantou1"></i>
@@ -12,7 +12,7 @@
                 <p>松开立即刷新</p>
                 <p>
                   <span>最后更新：今天</span>
-                  <span v-text="_utils.dateFormat(time, 'hh:mm')"></span>
+                  <span>{{ new Date(time).toLocaleTimeString() }}</span>
                 </p>
               </div>
               <div>
@@ -29,10 +29,39 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script setup lang="ts">
 import BScroll from 'better-scroll'
-const getRect = (el) => {
+import { nextTick, onMounted, onUnmounted, ref } from 'vue'
+
+// 定义Props类型
+interface ScrollOptions {
+  top?: number
+  bottom?: number
+  loading?: boolean
+  noMore?: boolean
+  pullingDown?: boolean
+}
+
+// 定义Props
+const props = withDefaults(
+  defineProps<{
+    options?: ScrollOptions
+  }>(),
+  {
+    options: () => ({
+      top: 0,
+      bottom: 0,
+      loading: false,
+      noMore: false,
+      pullingDown: false
+    })
+  }
+)
+
+// 工具函数：获取元素尺寸
+const getRect = (
+  el: HTMLElement | SVGElement
+): { top: number; left: number; width: number; height: number } => {
   if (el instanceof window.SVGElement) {
     const rect = el.getBoundingClientRect()
     return {
@@ -50,107 +79,116 @@ const getRect = (el) => {
     }
   }
 }
-export default {
-  name: 'common-scroll',
-  props: {
-    options: {
-      type: Object,
-      default () {
-        return {
-          top: 0,
-          bottom: 0,
-          loading: false,
-          noMore: false,
-          pullingDown: false
-        }
+
+// 定义组件名称
+defineOptions({
+  name: 'common-scroll'
+})
+
+// 响应式数据
+const pullingDownTipsRef = ref<HTMLElement | null>(null)
+const wrapperRef = ref<HTMLElement | null>(null)
+const contentRef = ref<HTMLElement | null>(null)
+const pullingDownTipsElRef = ref<HTMLElement | null>(null)
+
+const time = ref<number>(new Date().getTime())
+const loadingFlag = ref<boolean>(false)
+const scrollFlag = ref<boolean>(false)
+const pullDownStyle = ref<string>('')
+const pullDownInitTop = ref<number>(-120)
+
+// BetterScroll实例
+let scroll: BScroll | null = null
+
+// 滚动初始化
+const _scrollInit = () => {
+  nextTick(() => {
+    if (!wrapperRef.value || !contentRef.value) return
+
+    const hh = `${(props.options.top! * 100 + props.options.bottom! * 100) / 100}`
+    const wrapperRect = getRect(wrapperRef.value)
+    contentRef.value.style.minHeight = `${(wrapperRect.height / 37.5) * 10 - parseFloat(hh)}vw`
+    contentRef.value.style.paddingTop = `${props.options.top}vw`
+    contentRef.value.style.paddingBottom = `${props.options.bottom}vw`
+
+    const _options = {
+      mouseWheel: true,
+      probeType: 3,
+      click: true,
+      openPullUp: true,
+      pullUpLoad: {
+        threshold: 50
+      },
+      pullDownRefresh: {
+        threshold: 90,
+        stop: 0
       }
     }
-  },
-  setup () {
-    const pullingDownTips = ref(false)
-    const time = ref(new Date().getTime())
-    const loadingFlag = ref(false)
-    const scrollFlag = ref(false)
-    const pullDownStyle = ref('')
-    const pullDownInitTop = ref(-120)
-    return {
-      pullingDownTips,
-      time,
-      loadingFlag,
-      scrollFlag,
-      pullDownStyle,
-      pullDownInitTop
-    }
-  },
-  unmounted () {
-    this.scroll && this.scroll.destroy()
-  },
-  mounted () {
-    this._scrollInit()
-  },
-  methods: {
-    _scrollInit () {
-      this.$nextTick(() => {
-        const hh = `${(this.options.top * 100 + this.options.bottom * 100) / 100}`
-        this.$refs.content.style.minHeight = `${((getRect(this.$refs.wrapper).height) / 37.5) * 10 - hh}vw`
-        this.$refs.content.style.paddingTop = `${this.options.top}vw`
-        this.$refs.content.style.paddingBottom = `${this.options.bottom}vw`
 
-        const _options = {
-          mouseWheel: true,
-          probeType: 3,
-          click: true,
-          openPullUp: true,
-          pullUpLoad: {
-            threshold: 50
-          },
-          pullDownRefresh: {
-            threshold: 90,
-            stop: 0
-          }
+    scroll = new BScroll(wrapperRef.value, _options)
+
+    scroll.on('beforeScrollStart', () => {
+      scroll?.refresh()
+    })
+
+    scroll.on('pullingUp', () => {
+      // emit('pullingUp')
+    })
+
+    scroll.on('pullingDown', () => {
+      loadingFlag.value = true
+      // emit('pullingDown')
+    })
+
+    scroll.on('scroll', (pos: { y: number }) => {
+      if (!props.options.pullingDown) return
+      if (!scrollFlag.value) return
+      if (props.options.top === 0) {
+        if (pos.y < 20) {
+          pullDownStyle.value = `top:${Math.min((pos.y / 37.5) * 10 * 0.8 + (pullDownInitTop.value / 37.5) * 10)}vw`
         }
-        this.scroll = new BScroll(this.$refs.wrapper, _options)
+      } else {
+        if (pos.y < 70) {
+          pullDownStyle.value = `top:${Math.min((pos.y / 37.5) * 10 * 0.8 + (pullDownInitTop.value / 37.5) * 10)}vw`
+        }
+      }
+    })
 
-        this.scroll.on('beforeScrollStart', () => {
-          this.scroll.refresh()
-        })
-        this.scroll.on('pullingUp', () => {
-          // this.$emit('pullingUp')
-        })
-        this.scroll.on('pullingDown', () => {
-          this.loadingFlag = true
-          // this.$emit('pullingDown')
-        })
+    scroll.on('scrollEnd', () => {
+      if (!props.options.pullingDown) return
+      scrollFlag.value = false
+    })
 
-        this.scroll.on('scroll', (pos) => {
-          if (!this.options.pullingDown) return false
-          if (!this.scrollFlag) return false
-          if (this.options.top === 0) {
-            if (pos.y < 20) this.pullDownStyle = `top:${(Math.min((pos.y / 37.5 * 10) * 0.8 + (this.pullDownInitTop) / 37.5 * 10))}vw`
-          } else {
-            if (pos.y < 70) this.pullDownStyle = `top:${(Math.min((pos.y / 37.5 * 10) * 0.8 + (this.pullDownInitTop) / 37.5 * 10))}vw`
-          }
-        })
-        this.scroll.on('scrollEnd', () => {
-          if (!this.options.pullingDown) return false
-          this.scrollFlag = false
-        })
-        this.scroll.on('scrollStart', () => {
-          if (!this.options.pullingDown) return false
-          this.time = new Date().getTime()
-          this.scrollFlag = true
-        })
-      })
-    },
-    refresh () {
-      console.log('refresh刷新了...')
-      this.scroll.finishPullUp()
-      this.scroll.finishPullDown()
-      this.scroll.refresh()
-      this.loadingFlag = false
-    }
-  }
+    scroll.on('scrollStart', () => {
+      if (!props.options.pullingDown) return
+      time.value = new Date().getTime()
+      scrollFlag.value = true
+    })
+  })
 }
+
+// 刷新方法
+const refresh = () => {
+  console.log('refresh刷新了...')
+  scroll?.finishPullUp()
+  scroll?.finishPullDown()
+  scroll?.refresh()
+  loadingFlag.value = false
+}
+
+// 暴露方法给父组件
+defineExpose({
+  refresh
+})
+
+// 生命周期钩子
+onMounted(() => {
+  _scrollInit()
+})
+
+onUnmounted(() => {
+  scroll?.destroy()
+})
 </script>
 
 <style lang="scss" scoped>

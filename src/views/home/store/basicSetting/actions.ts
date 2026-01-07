@@ -3,9 +3,7 @@ import commonActions from './common/actions'
 import systemSettingActions from './systemsetting/actions'
 
 const actions = {
-  manuUnitUpdate({
-    commit
-  }, params) {
+  manuUnitUpdate({ commit }, params) {
     axios({
       method: 'post',
       url: '/news/unit/more/add/update',

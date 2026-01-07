@@ -2,31 +2,22 @@
   <div class="page-index">
     首页
     <router-view></router-view>
-    <!-- <common-scroll :options="options" ref="commonScroll">
+    <common-scroll :options="options" ref="commonScroll">
       <template v-slot:content>
         <div class="content"></div>
       </template>
-    </common-scroll>-->
+    </common-scroll>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'index',
-  metaInfo: {
-    title: '首页'
-  },
-  data () {
-    return {
-      options: {
-        top: 12,
-        bottom: 17
-      }
-    }
-  },
-  methods: {
-  }
-}
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 数据定义
+const options = ref({
+  top: 12,
+  bottom: 17
+})
 </script>
 
 <style lang="scss" scoped>

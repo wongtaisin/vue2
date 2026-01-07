@@ -17,6 +17,7 @@
 <script>
 
 export default {
+  name: 'page-user',
   components: {
   },
   data () {

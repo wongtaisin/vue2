@@ -12,33 +12,19 @@
     "sourceMap": true,
     "baseUrl": ".",
     "noImplicitAny": false,
-    "types": [
-      "webpack-env"
-    ],
+    "types": ["webpack-env", "node"],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost",
-      "es5",
-      "es6",
-      "es7",
-      "es2015.promise"
-    ]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost", "es5", "es6", "es7", "es2015.promise"]
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

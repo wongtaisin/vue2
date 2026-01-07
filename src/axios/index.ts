@@ -7,11 +7,9 @@ console.log(IS_PROD, IS_TYPE)
 axios.defaults.baseURL = IS_TYPE
 axios.defaults.timeout = 10000
 axios.defaults.withCredentials = false
-axios.defaults.headers = {
-  'Content-Type': 'application/json; charset=UTF-8',
-  'X-Requested-With': 'XMLHttpRequest',
-  'Access-Control-Allow-Origin': '*'
-}
+axios.defaults.headers.common['Content-Type'] = 'application/json; charset=UTF-8'
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 axios.defaults.responseType = 'json'
 
 axios.interceptors.response.use(

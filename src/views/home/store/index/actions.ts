@@ -2,10 +2,7 @@ import axios from '@/axios/index'
 
 const actions = {
   // 获取门店
-  getShop({
-    commit,
-    state
-  }, params) {
+  getShop({ commit, state }, params) {
     axios({
       method: 'get',
       url: '/news/core/get/shops'

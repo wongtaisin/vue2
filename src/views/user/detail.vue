@@ -17,37 +17,37 @@
   </section>
 </template>
 
-<script>
-import userHeader from './template/detail/head'
-export default {
-  name: 'page-user-detail',
-  components: {
-    userHeader
-  },
-  data () {
-    return {
-      password: '898979879789'
-    }
-  },
-  computed: {
-    getDetail () {
-      return this.$store.getters['shop/getDetail']
-    }
-  },
-  methods: {
-    loadData () {
-      const data = {
-        id: this.form.id
-      }
-      const _params = {
-        paramsDate: data,
-        callBack: () => {
-          console.log('getDetail')
-        }
-      }
-      this.$store.dispatch('shop/getDetail', _params)
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
+import userHeader from './template/detail/head.vue'
+
+// 数据定义
+const password = ref<string>('898979879789')
+
+// 表单数据（这里form未在原模板中使用，保持原有逻辑）
+const form = ref<{ id?: string | number }>({})
+
+// 获取store
+const store = useStore()
+
+// 计算属性
+const getDetail = computed(() => {
+  return store.getters['shop/getDetail']
+})
+
+// 方法定义
+const loadData = () => {
+  const data = {
+    id: form.value.id
+  }
+  const _params = {
+    paramsDate: data,
+    callBack: () => {
+      console.log('getDetail')
     }
   }
+  store.dispatch('shop/getDetail', _params)
 }
 </script>
 
