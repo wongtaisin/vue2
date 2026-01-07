@@ -14,40 +14,28 @@
   </section>
 </template>
 
-<script>
+<script lang="ts" setup>
+import { useRouter } from 'vue-router'
 
-export default {
-  name: 'page-user',
-  components: {
-  },
-  data () {
-    return {
-    }
-  },
-  // created () { },
-  // mounted () { },
-  methods: {
-    edit () {
-      this.$router.push({
-        path: '/user/detail'
-      })
-    }
-  }
+const router = useRouter()
+
+const edit = (): void => {
+  router.push({ path: '/user/detail' })
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .page-user {
   .top-0 {
-    height: 108px;
+    height: 216px;
     .van-image {
-      width: 60px;
-      height: 60px;
-      margin-left: 24px;
-      margin-right: 16px;
+      width: 120px;
+      height: 120px;
+      margin-left: 48px;
+      margin-right: 32px;
     }
     .van-row--align-center {
-      height: 108px;
+      height: 216px;
     }
     .va {
       div {
@@ -55,7 +43,7 @@ export default {
           font-weight: bold;
         }
         &:last-child {
-          margin-top: 8px;
+          margin-top: 16px;
           color: #999;
         }
       }

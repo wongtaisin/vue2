@@ -1,14 +1,9 @@
-import app from '../App.vue'
 import home from '../views/home/router/index'
+import user from '../views/user/router/index'
 
 const routes: any = [
-  {
-    path: '/',
-    name: 'app',
-    component: app,
-    redirect: '/index',
-    children: [...home]
-  },
+  ...home,
+  ...user,
   {
     path: '/:pathMatch(.*)*',
     redirect: '/404'

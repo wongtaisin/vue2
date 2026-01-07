@@ -8,6 +8,9 @@ import store from './store/index' // vuex
 import './assets/css/common.scss'
 import './assets/iconfont/iconfont.css'
 
+import Vant from 'vant'
+import 'vant/lib/index.css'
+
 const app = createApp(App)
 install(app)
-app.use(router).use(store).mount('#app')
+app.use(router).use(store).use(Vant).mount('#app')

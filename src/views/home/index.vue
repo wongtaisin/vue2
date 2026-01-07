@@ -1,10 +1,9 @@
 <template>
   <div class="page-index">
-    首页
     <router-view></router-view>
     <common-scroll :options="options" ref="commonScroll">
       <template v-slot:content>
-        <div class="content"></div>
+        <div class="content">首页</div>
       </template>
     </common-scroll>
   </div>
@@ -22,5 +21,6 @@ const options = ref({
 
 <style lang="scss" scoped>
 .page-index {
+  width: 750px;
 }
 </style>

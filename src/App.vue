@@ -87,9 +87,10 @@ const touchEnd = (e: TouchEvent) => {
 #vue {
   width: 100%;
   height: 100%;
-  font-size: 14px;
+  font-size: 28px;
   line-height: 1.2;
   color: #333;
+
   .app-view {
     background: #f8f9fb;
     position: absolute;
@@ -108,7 +109,7 @@ const touchEnd = (e: TouchEvent) => {
         transform: translate(100%, 0);
       }
       &.slide-left-enter-active {
-        box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.3);
       }
       &.slide-right-enter {
         transform: translate(-30%, 0);
@@ -116,7 +117,7 @@ const touchEnd = (e: TouchEvent) => {
       }
       &.slide-right-leave-active {
         transform: translate(100%, 0);
-        box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.3);
         z-index: 99;
       }
       &.slide-left-leave-active {
