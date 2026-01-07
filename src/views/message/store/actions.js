@@ -1,10 +1,7 @@
 import axios from '@/api'
 
 const actions = {
-  getWater({
-    commit,
-    state
-  }, params) {
+  getWater({ commit, state }, params) {
     axios({
       method: 'get',
       url: '/news/sis/pros/records/sts',
@@ -20,7 +17,7 @@ const actions = {
         }
         commit('getWater', {
           res: res.data.data,
-          list: [...state.getWater.list, ...res.data.data.content || []],
+          list: [...state.getWater.list, ...(res.data.data.content || [])],
           totalPages: res.data.data.totalPages
         })
         params.callBack()

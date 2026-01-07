@@ -1,5 +1,6 @@
 import commonState from './common/state'
 import systemSettingState from './systemsetting/state'
+
 const state = {
   manyUnit: {
     data: [],
@@ -11,11 +12,13 @@ const state = {
   },
   manyUnitUpdate: {
     name: '',
-    viceUnits: [{
-      num: '',
-      viceUnitName: '',
-      conversion: ''
-    }]
+    viceUnits: [
+      {
+        num: '',
+        viceUnitName: '',
+        conversion: ''
+      }
+    ]
   },
   getClass: {
     data: [],

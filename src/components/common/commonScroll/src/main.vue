@@ -31,7 +31,7 @@
 
 <script>
 import BScroll from 'better-scroll'
-const getRect = (el) => {
+const getRect = el => {
   if (el instanceof window.SVGElement) {
     const rect = el.getBoundingClientRect()
     return {
@@ -54,7 +54,7 @@ export default {
   props: {
     options: {
       type: Object,
-      default () {
+      default() {
         return {
           top: 0,
           bottom: 0,
@@ -65,7 +65,7 @@ export default {
       }
     }
   },
-  data () {
+  data() {
     return {
       pullingDownTips: false,
       time: new Date().getTime(),
@@ -75,17 +75,19 @@ export default {
       pullDownInitTop: -120
     }
   },
-  destroyed () {
+  destroyed() {
     this.scroll && this.scroll.destroy()
   },
-  mounted () {
+  mounted() {
     this._scrollInit()
   },
   methods: {
-    _scrollInit () {
+    _scrollInit() {
       this.$nextTick(() => {
         const hh = `${(this.options.top * 100 + this.options.bottom * 100) / 100}`
-        this.$refs.content.style.minHeight = `${((getRect(this.$refs.wrapper).height) / 37.5) * 10 - hh}vw`
+        this.$refs.content.style.minHeight = `${
+          (getRect(this.$refs.wrapper).height / 37.5) * 10 - hh
+        }vw`
         this.$refs.content.style.paddingTop = `${this.options.top}vw`
         this.$refs.content.style.paddingBottom = `${this.options.bottom}vw`
 
@@ -115,13 +117,19 @@ export default {
           this.$emit('pullingDown')
         })
 
-        this.scroll.on('scroll', (pos) => {
+        this.scroll.on('scroll', pos => {
           if (!this.options.pullingDown) return false
           if (!this.scrollFlag) return false
-          if (this.options.top == 0) {
-            if (pos.y < 20) this.pullDownStyle = `top:${(Math.min((pos.y / 75 * 10) * 0.8 + (this.pullDownInitTop) / 75 * 10))}vw`
+          if (this.options.top === 0) {
+            if (pos.y < 20)
+              this.pullDownStyle = `top:${Math.min(
+                (pos.y / 75) * 10 * 0.8 + (this.pullDownInitTop / 75) * 10
+              )}vw`
           } else {
-            if (pos.y < 70) this.pullDownStyle = `top:${(Math.min((pos.y / 75 * 10) * 0.8 + (this.pullDownInitTop) / 75 * 10))}vw`
+            if (pos.y < 70)
+              this.pullDownStyle = `top:${Math.min(
+                (pos.y / 75) * 10 * 0.8 + (this.pullDownInitTop / 75) * 10
+              )}vw`
           }
         })
         this.scroll.on('scrollEnd', () => {
@@ -135,7 +143,7 @@ export default {
         })
       })
     },
-    refresh () {
+    refresh() {
       console.log('refresh刷新了...')
       this.scroll.finishPullUp()
       this.scroll.finishPullDown()

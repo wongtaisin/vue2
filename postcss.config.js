@@ -5,10 +5,11 @@ module.exports = {
       viewportWidth: 375,
       unitPrecision: 5,
       viewportUnit: 'vw',
-      fontViewportUnit: 'vmin',
-      selectorBlackList: ['.ignore', '.hairlines'],
+      fontViewportUnit: 'vw',
+      selectorBlackList: [],
       minPixelValue: 1,
       mediaQuery: false,
+      exclude: [] // 可选：排除某些文件
     }
-  },
+  }
 }

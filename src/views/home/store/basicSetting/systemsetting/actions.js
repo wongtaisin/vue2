@@ -2,9 +2,7 @@ import axios from '@/api/index'
 
 const actions = {
   // 获取系统设置
-  systemsetGetSysset({
-    commit
-  }) {
+  systemsetGetSysset({ commit }) {
     axios({
       method: 'get',
       url: '/news/sysset/get/sysset'

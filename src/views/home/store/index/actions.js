@@ -2,10 +2,7 @@ import axios from '@/api/index'
 
 const actions = {
   // 获取门店
-  getShop({
-    commit,
-    state
-  }, params) {
+  getShop({ commit, state }, params) {
     if (state.getShop !== '') {
       commit('getShop', {
         data: []
@@ -22,11 +19,14 @@ const actions = {
       }).then(res => {
         if (res.data.code === 1001) {
           if (_that.rootId === _that.uid) {
-            var firstShop = [{
-              shopId: 0,
-              name: '所有门店'
-            }]
-            var allShop = res.data.data.length === 1 ? res.data.data : firstShop.concat(res.data.data)
+            var firstShop = [
+              {
+                shopId: 0,
+                name: '所有门店'
+              }
+            ]
+            var allShop =
+              res.data.data.length === 1 ? res.data.data : firstShop.concat(res.data.data)
           } else var allShop = res.data.data
           commit('getShop', {
             data: [...state.getShop.data, ...allShop]

@@ -1,4 +1,4 @@
-const _import = index => import( /* webpackChunkName: "user" */ `@/views/user/${index}`)
+const _import = index => import(/* webpackChunkName: "user" */ `@/views/user/${index}`)
 
 export default [
   {

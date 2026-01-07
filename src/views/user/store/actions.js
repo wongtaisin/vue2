@@ -1,10 +1,7 @@
 import axios from '@/api/index'
 
 const actions = {
-  getCount({
-    commit,
-    state
-  }, params) {
+  getCount({ commit, state }, params) {
     let paramsNumber = params.paramsDate ? params.paramsDate : params.paramsInit
     axios({
       method: 'get',
@@ -21,7 +18,7 @@ const actions = {
             })
           }
           commit('getCountFive', {
-            data: [...state.getCountFive.data, ...res.data.data.content || []],
+            data: [...state.getCountFive.data, ...(res.data.data.content || [])],
             totalPages: res.data.data.totalPages,
             totalElements: res.data.data.totalElements
           })
@@ -33,7 +30,7 @@ const actions = {
             })
           }
           commit('getCount', {
-            data: [...state.getCount.data, ...res.data.data.content || []],
+            data: [...state.getCount.data, ...(res.data.data.content || [])],
             totalPages: res.data.data.totalPages
           })
         }

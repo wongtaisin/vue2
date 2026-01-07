@@ -1,7 +1,7 @@
 <template>
-    <div class="mk-error">
-        <p>{{ message }}</p>
-    </div>
+  <div class="mk-error">
+    <p>{{ message }}</p>
+  </div>
 </template>
 
 <script>
@@ -26,9 +26,9 @@ export default {
 
 <style lang="scss" scoped>
 .mk-error {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

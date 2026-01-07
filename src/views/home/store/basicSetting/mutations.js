@@ -28,7 +28,7 @@ const mutations = {
   },
   customerSupplierDetail(state, data) {
     state.customerSupplierDetail = data
-  },
+  }
 }
 
 export default Object.assign(commonMutations, mutations, systemSettingMutations)

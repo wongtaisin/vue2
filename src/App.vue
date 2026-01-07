@@ -16,7 +16,7 @@
 <script>
 export default {
   name: 'app',
-  data () {
+  data() {
     return {
       moveName: '', // 页面滑动 name值
       startX: 0,
@@ -24,13 +24,13 @@ export default {
     }
   },
   watch: {
-    $route (to, from) {
+    $route(to, from) {
       if (to.meta.grade < from.meta.grade) this.moveName = 'move-left'
       if (to.meta.grade > from.meta.grade) this.moveName = 'move-right'
       if (!from.name) this.moveName = ''
     }
   },
-  mounted () {
+  mounted() {
     this.$nextTick(() => {
       // ios 键盘弹起失效问题
       document.body.addEventListener('focusout', () => {
@@ -38,18 +38,18 @@ export default {
       })
     })
   },
-  destroy () {
+  destroy() {
     document.body.removeEventListener('focusout', () => {
       window.scrollTo(0, 0)
     })
   },
   methods: {
-    touchStart (e) {
+    touchStart(e) {
       // 记录初始位置
       this.startX = e.touches[0].clientX
     },
     // 滑动结束
-    touchEnd (e) {
+    touchEnd(e) {
       this.endX = e.changedTouches[0].clientX
       if (this.$route.meta.grade === 1) return false
       if (this.startX - this.endX > 160) console.log(e, '左滑')

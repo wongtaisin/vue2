@@ -4,14 +4,13 @@ import systemSettingActions from './systemsetting/actions'
 
 const actions = {
   // 获取多单位
-  manyUnit({
-    commit,
-    state
-  }, params) {
-    const _data = params ? params.paramsDate : {
-      pageIndex: 1,
-      pageCount: 25
-    }
+  manyUnit({ commit, state }, params) {
+    const _data = params
+      ? params.paramsDate
+      : {
+          pageIndex: 1,
+          pageCount: 25
+        }
     if (_data.pageIndex === 1) {
       commit('manyUnit', {
         data: [],
@@ -25,16 +24,14 @@ const actions = {
       data: ''
     }).then(res => {
       commit('manyUnit', {
-        data: [...state.manyUnit.data, ...res.data.data.content || []],
+        data: [...state.manyUnit.data, ...(res.data.data.content || [])],
         totalPages: res.data.data.totalPages
       })
       if (params) params.callBack()
     })
   },
   // 编辑新增多单位
-  manuUnitUpdate({
-    commit
-  }, params) {
+  manuUnitUpdate({ commit }, params) {
     axios({
       method: 'post',
       url: '/news/unit/more/add/update',

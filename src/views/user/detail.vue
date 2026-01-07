@@ -24,26 +24,24 @@ export default {
   components: {
     userHeader
   },
-  data () {
+  data() {
     return {
       password: '898979879789'
     }
   },
   computed: {
-    getDetail () {
+    getDetail() {
       return this.$store.getters['shop/getDetail']
     }
   },
   methods: {
-    loadData () {
+    loadData() {
       const data = {
         id: this.form.id
       }
       const _params = {
         paramsDate: data,
-        callBack: () => {
-
-        }
+        callBack: () => {}
       }
       this.$store.dispatch('shop/getDetail', _params)
     }

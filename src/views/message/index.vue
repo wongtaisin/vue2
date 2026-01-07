@@ -3,21 +3,18 @@
 </template>
 
 <script>
-
 export default {
   components: {},
-  data () {
-    return {
-
-    }
+  data() {
+    return {}
   },
-  created () { },
-  mounted () { },
+  created() {},
+  mounted() {},
   methods: {}
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .page-message {
   width: 100%;
   min-height: 100%;

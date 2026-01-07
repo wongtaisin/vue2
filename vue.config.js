@@ -12,8 +12,10 @@ module.exports = {
     requireModuleExtension: true, // 启用 CSS modules
     extract: IS_PROD ? true : false, // 是否使用css分离插件
     sourceMap: false, // 开启 CSS source maps，一般不建议开启
-    loaderOptions: { // css预设器配置项
-      sass: { //设置css中引用文件的路径，引入通用使用的scss文件（如包含的@mixin）
+    loaderOptions: {
+      // css预设器配置项
+      sass: {
+        //设置css中引用文件的路径，引入通用使用的scss文件（如包含的@mixin）
         prependData: `@import '@/assets/css/mixin.scss';`
       }
     }
@@ -23,12 +25,15 @@ module.exports = {
     port: 8099, // 端口号
     https: false, // https:{type:Boolean}
     hotOnly: true, // 热更新
-    overlay: { // 编译器错误或警告
+    overlay: {
+      // 编译器错误或警告
       warnings: false,
       errors: true
     },
-    proxy: { // 跨域处理
-      '/api': { // 将 www.exaple.com 印射为/apis
+    proxy: {
+      // 跨域处理
+      '/api': {
+        // 将 www.exaple.com 印射为/apis
         target: 'https://minku.deeptel.com.cn/', // 接口域名
         secure: false, // 如果是https接口，需要配置这个参数
         changeOrigin: true, // 是否跨域

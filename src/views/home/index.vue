@@ -18,18 +18,18 @@ export default {
   metaInfo: {
     title: 'Home'
   },
-  data () {
+  data() {
     return {
       options: {
         top: 12,
         bottom: 17
-      },
+      }
     }
   },
   methods: {
-    loadData () {
+    loadData() {
       console.log('a')
-    },
+    }
   }
 }
 </script>

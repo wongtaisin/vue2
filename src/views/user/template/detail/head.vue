@@ -16,19 +16,17 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       show: false
     }
   },
   computed: {
-    getDetail () {
+    getDetail() {
       return this.$store.getters['shop/getDetail']
     }
   },
-  methods: {
-
-  }
+  methods: {}
 }
 </script>
 

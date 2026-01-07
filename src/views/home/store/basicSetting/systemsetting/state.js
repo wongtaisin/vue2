@@ -1,4 +1,4 @@
 const state = {
-    systemsetGetSysset: null,
+  systemsetGetSysset: null
 }
 export default state

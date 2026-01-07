@@ -15,18 +15,15 @@
 </template>
 
 <script>
-
 export default {
-  components: {
-  },
-  data () {
-    return {
-    }
+  components: {},
+  data() {
+    return {}
   },
   // created () { },
   // mounted () { },
   methods: {
-    edit () {
+    edit() {
       this.$router.push({
         path: '/user/detail'
       })
@@ -35,7 +32,7 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .page-user {
   .top-0 {
     height: 108px;

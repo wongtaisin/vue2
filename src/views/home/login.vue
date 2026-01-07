@@ -50,18 +50,14 @@
               native-type="button"
               size="small"
               v-if="show"
-            >发送验证码</van-button>
-            <van-button
-              color="#D3D6DD"
-              disabled
-              native-type="button"
-              plain
-              size="small"
-              v-else
-            >{{codeText}}</van-button>
+              >发送验证码</van-button
+            >
+            <van-button color="#D3D6DD" disabled native-type="button" plain size="small" v-else>{{
+              codeText
+            }}</van-button>
           </template>
         </van-field>
-        <div style="margin-top: 9.33333vw;">
+        <div style="margin-top: 9.33333vw">
           <van-button block native-type="submit" type="info" v-if="show1">提交</van-button>
           <van-button block color="#DFE1E6" disabled v-else>提交</van-button>
         </div>
@@ -77,7 +73,7 @@
 <script>
 export default {
   name: 'login',
-  data () {
+  data() {
     return {
       username: '',
       phone: '',
@@ -91,29 +87,30 @@ export default {
   },
   computed: {},
   methods: {
-    onSubmit (values) {
+    onSubmit(values) {
       console.log('submit', values)
     },
-    inputPhone (val) {
+    inputPhone(val) {
       // console.log(this.phone, val.length)
-      if (!(this.pattern.test(val))) this.show = false
+      if (!this.pattern.test(val)) this.show = false
       else this.show = true
     },
-    inputSms (val) {
+    inputSms(val) {
       // console.log(val)
       if (val.length === 0) this.show1 = false
       else this.show1 = true
     },
-    mesCode () {
+    mesCode() {
       // this.$toast('发送60s')
       this.codeText = 60
       this.show = false
       const code = setInterval(() => {
         --this.codeText
-        if (this.codeText === 0) clearInterval(code), this.codeText = '发送验证码', this.show = true
+        if (this.codeText === 0)
+          clearInterval(code), (this.codeText = '发送验证码'), (this.show = true)
       }, 1000)
     }
-  },
+  }
 }
 </script>
 
