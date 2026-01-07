@@ -54,8 +54,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-home {
-  width: 375px;
+  width: 750px;
   min-height: 100%;
-  font-size: 28px;
+  font-size: 56px;
 }
 </style>

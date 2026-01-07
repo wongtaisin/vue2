@@ -53,9 +53,5 @@ export default {
 .page-user-detail {
   height: 100vh;
   background: white !important;
-  .img {
-    width: 40px;
-    height: 40px;
-  }
 }
 </style>

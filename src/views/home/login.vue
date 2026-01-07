@@ -116,33 +116,38 @@ export default {
 
 <style lang="scss" scoped>
 .page-login {
-  width: 375px;
+  width: 750px;
   height: 100vh;
   background: white !important;
+
   .bg-contain {
-    margin-top: 60px;
+    margin-top: 120px;
+
     .title {
-      margin-left: 48px;
+      margin-left: 96px;
       p {
         &:first-child {
-          font-size: 24px;
+          font-size: 48px;
           color: #4c73f8;
         }
         &:last-child {
-          margin: 16px 0 30px;
-          font-size: 18px;
+          margin: 32px 0 60px;
+          font-size: 36px;
           color: #141733;
         }
       }
     }
+
     .form {
-      margin: 0 34px;
+      margin: 0 68px;
     }
+
     .protocol {
-      margin-top: 20px;
-      font-size: 12px;
+      margin-top: 40px;
+      font-size: 24px;
       color: #babec9;
       text-align: center;
+
       span {
         color: #4c73f8;
       }

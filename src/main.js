@@ -5,10 +5,11 @@ import App from '@/App.vue'
 import install from '@/components/common/index' // 全局安装
 import router from '@/router/index' // 路由
 import store from '@/store/index' // vuex
-import Vant from 'vant'
 
 import '@/assets/css/common.scss'
 import '@/assets/iconfont/iconfont.css'
+
+import Vant from 'vant'
 import 'vant/lib/index.css'
 
 install(Vue)

@@ -33,13 +33,13 @@ export default {
 <style scoped lang="scss">
 .page-user-detail-head {
   .img {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
   }
   .overlay {
     .img {
-      width: 280px;
-      height: 280px;
+      width: 560px;
+      height: 560px;
     }
   }
 }

@@ -67,11 +67,12 @@ export default {
 
 <style lang="scss">
 #app {
-  width: 100%;
+  width: 750px;
   height: 100%;
-  font-size: 14px;
+  font-size: 28px;
   line-height: 1.2;
   color: #333;
+
   .app-view {
     background: #f8f9fb;
     position: absolute;
@@ -80,17 +81,19 @@ export default {
     bottom: 0;
     left: 0;
     -webkit-overflow-scrolling: touch;
+
     &::-webkit-scrollbar {
       width: 0;
       background: transparent;
     }
+
     &.transition-slide {
       transition: transform 0.35s cubic-bezier(0, 0, 0.2, 1);
       &.slide-left-enter {
         transform: translate(100%, 0);
       }
       &.slide-left-enter-active {
-        box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.3);
       }
       &.slide-right-enter {
         transform: translate(-30%, 0);
@@ -98,7 +101,7 @@ export default {
       }
       &.slide-right-leave-active {
         transform: translate(100%, 0);
-        box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 32px 4px rgba(0, 0, 0, 0.3);
         z-index: 99;
       }
       &.slide-left-leave-active {
@@ -113,6 +116,7 @@ export default {
         overflow-y: auto;
       }
     }
+
     &.transition-fade {
       opacity: 1;
       transition: opacity 1s ease;
@@ -124,6 +128,7 @@ export default {
       }
     }
   }
+
   // 页面左右滑动
   .move-left-enter {
     position: fixed;
@@ -134,6 +139,7 @@ export default {
     z-index: 99999;
     transform: translate(-50%);
   }
+
   .move-left-enter-active {
     position: fixed;
     top: 0;
@@ -143,6 +149,7 @@ export default {
     z-index: 99999;
     transition: all 0.3s ease;
   }
+
   .move-left-leave-active {
     position: fixed;
     top: 0;
@@ -153,6 +160,7 @@ export default {
     transform: translate(50%);
     transition: all 0 ease;
   }
+
   .move-right-enter {
     position: fixed;
     top: 0;
@@ -162,6 +170,7 @@ export default {
     z-index: 99999;
     transform: translate(50%);
   }
+
   .move-right-enter-active {
     position: fixed;
     top: 0;
@@ -171,6 +180,7 @@ export default {
     z-index: 99999;
     transition: all 0.3s ease;
   }
+
   .move-right-leave-active {
     position: fixed;
     top: 0;
